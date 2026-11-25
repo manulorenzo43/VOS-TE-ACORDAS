@@ -13,6 +13,11 @@ function crearFormulario() {
     .setCollectEmail(false)
     .setProgressBar(true);
 
+  // 0) Quién responde
+  form.addTextItem()
+    .setTitle('Tu nombre')
+    .setRequired(true);
+
   // 1) Canción de entrada
   form.addPageBreakItem().setTitle('🎵 La música con la que vas a entrar');
   form.addTextItem()
