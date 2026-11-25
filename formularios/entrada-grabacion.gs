@@ -1,5 +1,5 @@
 /**
- * Formulario de Google: "Canciones de entrada — Grabación"
+ * Formulario de Google: "Entrada graduación"
  *
  * Cómo usarlo:
  *  1. Entrá a https://script.google.com y tocá "Nuevo proyecto".
@@ -8,7 +8,7 @@
  *  4. En "Registro de ejecución" aparecen los dos links: uno para editar y otro para compartir.
  */
 function crearFormulario() {
-  var form = FormApp.create('Canciones de entrada — Grabación')
+  var form = FormApp.create('Entrada graduación')
     .setDescription('Completá con qué canción vas a entrar, con quién y desde qué minuto la usamos.')
     .setCollectEmail(false)
     .setProgressBar(true);
