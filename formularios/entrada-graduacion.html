@@ -1,0 +1,256 @@
+<title>Entrada graduación</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: una columna angosta — tarjeta de formulario arriba, lista de respuestas abajo */
+:root {
+  --bg: #eef1f7;
+  --surface: #ffffff;
+  --ink: #141a2e;
+  --muted: #5b6380;
+  --line: #d5dae8;
+  --accent: #b8860b;
+  --accent-ink: #ffffff;
+  --navy: #1d2a55;
+  --ok: #1e7a4a;
+  --err: #b3261e;
+  --display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1022; --surface: #151b33; --ink: #eceffa; --muted: #9aa3c2;
+    --line: #2a3356; --accent: #e0b040; --accent-ink: #14182b; --navy: #c9d3f5;
+    --ok: #5fcf93; --err: #ff8a80; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1022; --surface: #151b33; --ink: #eceffa; --muted: #9aa3c2;
+  --line: #2a3356; --accent: #e0b040; --accent-ink: #14182b; --navy: #c9d3f5;
+  --ok: #5fcf93; --err: #ff8a80; color-scheme: dark;
+}
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 56px;
+}
+.wrap { max-width: 620px; margin: 0 auto; display: grid; gap: 28px; }
+header { display: grid; gap: 6px; }
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(32px, 8vw, 46px); line-height: 1.02; margin: 0; color: var(--navy); text-wrap: balance; letter-spacing: -.01em; }
+.lead { margin: 0; color: var(--muted); max-width: 52ch; }
+
+form { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: grid; gap: 22px; }
+fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 12px; }
+legend { font-family: var(--display); font-weight: 600; font-size: 19px; color: var(--navy); padding: 0; margin-bottom: 4px; display: flex; gap: 10px; align-items: baseline; }
+legend .n { font-family: var(--body); font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: .08em; }
+fieldset + fieldset { border-top: 1px solid var(--line); padding-top: 20px; }
+.field { display: grid; gap: 6px; }
+label { font-weight: 600; font-size: 14px; }
+.opt { font-weight: 400; color: var(--muted); }
+.hint { font-size: 13px; color: var(--muted); }
+input[type=text], input[type=url] {
+  font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 9px;
+  padding: 11px 12px; width: 100%; box-sizing: border-box;
+}
+input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
+input[aria-invalid=true] { border-color: var(--err); }
+.time { max-width: 120px; font-variant-numeric: tabular-nums; letter-spacing: .04em; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+button {
+  font: inherit; font-weight: 600; background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 9px;
+  padding: 12px 22px; cursor: pointer;
+}
+button:hover { filter: brightness(1.06); }
+button:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+button:disabled { opacity: .5; cursor: not-allowed; }
+.status { font-size: 14px; color: var(--muted); }
+.status.ok { color: var(--ok); }
+.status.err { color: var(--err); }
+.notice { font-size: 14px; background: var(--bg); border: 1px dashed var(--line); border-radius: 9px; padding: 10px 12px; color: var(--muted); }
+
+section.list { display: grid; gap: 12px; }
+h2 { font-family: var(--display); font-weight: 600; font-size: 20px; margin: 0; color: var(--navy); display: flex; gap: 10px; align-items: baseline; }
+h2 .count { font-family: var(--body); font-size: 13px; color: var(--muted); font-weight: 500; }
+ul.rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+ul.rows li { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 12px 2px; border-bottom: 1px solid var(--line); }
+.who { font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+.min { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 600; grid-row: span 2; align-self: center; }
+.song { color: var(--muted); font-size: 14px; min-width: 0; overflow-wrap: anywhere; }
+.song a { color: inherit; }
+.empty { color: var(--muted); font-size: 14px; padding: 12px 0; }
+@media (prefers-reduced-motion: no-preference) { button { transition: filter .15s; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Grabación · canciones de entrada</span>
+    <h1>Entrada graduación</h1>
+    <p class="lead">Contanos con qué canción entrás, con quién y desde qué minuto la usamos. Podés volver y cambiar tu respuesta cuando quieras.</p>
+  </header>
+
+  <form id="f" novalidate>
+    <div class="notice" id="notice" hidden></div>
+
+    <fieldset>
+      <legend><span class="n">00</span> Vos</legend>
+      <div class="field">
+        <label for="nombre">Tu nombre</label>
+        <input type="text" id="nombre" name="nombre" autocomplete="name" required maxlength="80">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">01</span> La música con la que vas a entrar</legend>
+      <div class="field">
+        <label for="cancion">Canción</label>
+        <span class="hint" id="cancion-hint">Nombre y artista, por ejemplo: Mr. Brightside, The Killers</span>
+        <input type="text" id="cancion" name="cancion" aria-describedby="cancion-hint" required maxlength="140">
+      </div>
+      <div class="field">
+        <label for="link">Link <span class="opt">(opcional)</span></label>
+        <input type="url" id="link" name="link" placeholder="https://youtube.com/…" maxlength="300">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">02</span> Con quién vas a entrar</legend>
+      <div class="field">
+        <label for="conquien">Persona</label>
+        <span class="hint" id="conquien-hint">Si entrás sin nadie, poné "Solo/a".</span>
+        <input type="text" id="conquien" name="conquien" aria-describedby="conquien-hint" required maxlength="80">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="n">03</span> Qué minuto de la canción usar</legend>
+      <div class="field">
+        <label for="minuto">Desde el minuto</label>
+        <span class="hint" id="minuto-hint">Formato mm:ss, por ejemplo 01:23</span>
+        <input type="text" id="minuto" name="minuto" class="time" inputmode="numeric" placeholder="00:00" aria-describedby="minuto-hint" required maxlength="5">
+      </div>
+    </fieldset>
+
+    <div class="actions">
+      <button type="submit" id="send">Enviar respuesta</button>
+      <span class="status" id="status" role="status"></span>
+    </div>
+  </form>
+
+  <section class="list" aria-labelledby="h-list">
+    <h2 id="h-list">Respuestas <span class="count" id="count"></span></h2>
+    <ul class="rows" id="rows"></ul>
+    <p class="empty" id="empty">Cargando respuestas…</p>
+  </section>
+</div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var form = $("f"), statusEl = $("status"), sendBtn = $("send"), notice = $("notice");
+  var fields = ["nombre", "cancion", "link", "conquien", "minuto"];
+  var db = null, myId = null, myRef = null, saving = false, prefilled = false, locked = false;
+
+  function setStatus(msg, kind) { statusEl.textContent = msg; statusEl.className = "status" + (kind ? " " + kind : ""); }
+  function showNotice(msg) { notice.textContent = msg; notice.hidden = false; }
+  function lockForm() { locked = true; fields.forEach(function (k) { $(k).disabled = true; }); sendBtn.disabled = true; }
+
+  // Normaliza "123" → "01:23", "1:5" no se acepta
+  $("minuto").addEventListener("blur", function () {
+    var v = this.value.trim();
+    if (/^\d{3,4}$/.test(v)) { v = v.padStart(4, "0"); this.value = v.slice(0, 2) + ":" + v.slice(2); }
+    else if (/^\d:\d\d$/.test(v)) { this.value = "0" + v; }
+  });
+
+  function validate() {
+    var ok = true, first = null;
+    function check(id, cond) { var el = $(id); el.setAttribute("aria-invalid", cond ? "false" : "true"); if (!cond) { ok = false; first = first || el; } }
+    check("nombre", $("nombre").value.trim().length > 0);
+    check("cancion", $("cancion").value.trim().length > 0);
+    var link = $("link").value.trim();
+    check("link", link === "" || /^https:\/\/\S+$/i.test(link));
+    check("conquien", $("conquien").value.trim().length > 0);
+    check("minuto", /^\d{1,2}:[0-5]\d$/.test($("minuto").value.trim()));
+    if (first) first.focus();
+    return ok;
+  }
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    if (saving) return;
+    if (!validate()) { setStatus("Revisá los campos marcados. El link tiene que empezar con https:// y el minuto ir como mm:ss.", "err"); return; }
+    if (!myRef) { setStatus("No se puede enviar desde acá: entrá a esta página con tu cuenta de Claude.", "err"); return; }
+    saving = true; sendBtn.disabled = true; setStatus("Enviando…");
+    var data = { updatedAt: new Date().toISOString() };
+    fields.forEach(function (k) { data[k] = $(k).value.trim(); });
+    try {
+      await myRef.set(data);
+      setStatus("¡Listo! Tu respuesta quedó guardada.", "ok");
+      sendBtn.textContent = "Actualizar respuesta";
+    } catch (err) {
+      if (err && err.code === "invalid_argument") { setStatus("No tenés permiso para enviar. Pedile a quien te pasó el link que te dé acceso de Colaborador.", "err"); lockForm(); }
+      else setStatus("No se pudo guardar. Probá de nuevo en un momento.", "err");
+    } finally { saving = false; if (!locked) sendBtn.disabled = false; }
+  });
+
+  function render(snap) {
+    var rows = $("rows"); rows.textContent = "";
+    var docs = snap.docs.filter(function (d) { return d.exists; }).map(function (d) { return d.data() || {}; })
+      .sort(function (a, b) { return String(a.nombre || "").localeCompare(String(b.nombre || ""), "es"); });
+    $("count").textContent = docs.length ? docs.length + (docs.length === 1 ? " persona" : " personas") : "";
+    $("empty").hidden = docs.length > 0;
+    $("empty").textContent = "Todavía nadie respondió. Completá el formulario y vas a aparecer acá.";
+    docs.forEach(function (d) {
+      var li = document.createElement("li");
+      var who = document.createElement("span"); who.className = "who";
+      who.textContent = (d.nombre || "Sin nombre") + (d.conquien ? " · con " + d.conquien : "");
+      var min = document.createElement("span"); min.className = "min"; min.textContent = d.minuto || "—";
+      var song = document.createElement("span"); song.className = "song";
+      if (typeof d.link === "string" && /^https:\/\//i.test(d.link)) {
+        var a = document.createElement("a"); a.href = d.link; a.target = "_blank"; a.rel = "noopener noreferrer";
+        a.textContent = d.cancion || d.link; song.appendChild(a);
+      } else song.textContent = d.cancion || "";
+      li.append(who, min, song); rows.appendChild(li);
+    });
+  }
+
+  async function start() {
+    db = window.claude && window.claude.use ? await window.claude.use("db") : null;
+    var user = window.claude && window.claude.use ? await window.claude.use("user") : null;
+    if (!db) {
+      $("empty").textContent = "Las respuestas se ven cuando entrás con tu cuenta de Claude.";
+      showNotice("Para enviar tu respuesta tenés que abrir esta página con tu cuenta de Claude.");
+      lockForm(); return;
+    }
+    myId = user ? await user.id() : null;
+    var canWrite = user ? await user.can("data.write") : null;
+    if (myId) myRef = db.collection("respuestas").doc(myId);
+    if (!myId || canWrite === false) {
+      showNotice("Podés ver las respuestas, pero para enviar la tuya necesitás acceso de Colaborador. Pedíselo a quien te pasó el link.");
+      lockForm();
+    }
+
+    var timer = setTimeout(function () { $("empty").textContent = "No se pudieron cargar las respuestas todavía. Revisá tu conexión."; }, 10000);
+    db.collection("respuestas").onSnapshot(function (snap) {
+      if (!snap.metadata || !snap.metadata.fromCache) clearTimeout(timer);
+      render(snap);
+      if (!prefilled && myId) {
+        var mine = snap.docs.find(function (d) { return d.id === myId && d.exists; });
+        if (mine) {
+          prefilled = true;
+          var d = mine.data() || {};
+          fields.forEach(function (k) { if (!$(k).value && typeof d[k] === "string") $(k).value = d[k]; });
+          sendBtn.textContent = "Actualizar respuesta";
+          setStatus("Ya respondiste. Si cambiás algo, tocá Actualizar.");
+        } else if (snap.metadata && !snap.metadata.fromCache) prefilled = true;
+      }
+    }, function () {
+      clearTimeout(timer);
+      $("empty").textContent = "No se pudieron cargar las respuestas.";
+    });
+  }
+  start();
+})();
+</script>
